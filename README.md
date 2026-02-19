@@ -70,9 +70,21 @@ Triggers:
 
 Behavior:
 - Build Windows EXE on `windows-latest`
-- Build macOS DMG on `macos-latest`
+- Build macOS DMG on `macos-14`
+- macOS artifact is automatically signed + notarized
 - Upload both as workflow artifacts
 - On tag push, publish GitHub Release with EXE + DMG assets
+
+### Required GitHub Secrets (macOS signing/notarization)
+
+Configure these repository secrets:
+
+- `APPLICATION_P12_BASE64`: Base64 content of your `Developer ID Application` `.p12`
+- `APPLICATION_P12_PASSWORD`: Password for that `.p12`
+- `CODESIGN_IDENTITY`: Certificate common name, e.g. `Developer ID Application: Your Company (TEAMID)`
+- `APPLE_ID`: Apple ID email used for notarization
+- `TEAM_ID`: Apple Developer Team ID
+- `NOTARY_PASSWORD`: App-specific password for the Apple ID
 
 ## Security Notes
 
