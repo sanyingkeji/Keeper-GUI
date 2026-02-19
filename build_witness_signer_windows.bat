@@ -5,9 +5,14 @@ cd /d "%~dp0"
 
 if not exist ".venv-build\Scripts\python.exe" (
   echo [INFO] Creating build venv...
-  py -3 -m venv .venv-build
+  where python >nul 2>nul
+  if %errorlevel%==0 (
+    python -m venv .venv-build
+  ) else (
+    py -3.11 -m venv .venv-build
+  )
   if errorlevel 1 (
-    echo [ERROR] Failed to create venv. Ensure Python is installed and py launcher is available.
+    echo [ERROR] Failed to create venv. Ensure Python 3.11 is installed.
     exit /b 1
   )
 )
@@ -17,6 +22,9 @@ if errorlevel 1 (
   echo [ERROR] Failed to activate venv.
   exit /b 1
 )
+
+python --version
+if errorlevel 1 exit /b 1
 
 python -m pip install --upgrade pip
 if errorlevel 1 exit /b 1

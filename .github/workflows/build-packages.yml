@@ -20,6 +20,13 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          check-latest: true
+
+      - name: Show Python version
+        run: |
+          python --version
+          where python
+        shell: cmd
 
       - name: Build EXE
         run: .\build_witness_signer_windows.bat
@@ -42,6 +49,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          check-latest: true
+
+      - name: Show Python version
+        run: python --version
 
       - name: Build DMG
         run: |
